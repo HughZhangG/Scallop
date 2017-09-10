@@ -1,6 +1,5 @@
 package com.gu.cheng.scallop;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -19,7 +18,6 @@ import com.gu.cheng.scallop.api.model.WordDetail;
 import com.gu.cheng.scallop.listener.CharacterClickListener;
 import com.gu.cheng.scallop.view.BottomSheetManager;
 import com.gu.cheng.scallop.view.SpanTextView2;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -85,8 +83,13 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetManager.setState(BottomSheetBehavior.STATE_HIDDEN);
 
 
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO);
+//        RxPermissions rxPermissions = new RxPermissions(this);
+//        rxPermissions.request(Manifest.permission.RECORD_AUDIO)
+//                .subscribe(new Consumer<Boolean>() {
+//                    @Override
+//                    public void accept(Boolean aBoolean) throws Exception {
+//                    }
+//                });
     }
 
     /**
