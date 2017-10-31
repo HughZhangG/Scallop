@@ -17,7 +17,7 @@ import com.gu.cheng.scallop.api.model.WordDetail;
 
 /**
  * Created by gc on 2017/9/8.
- *
+ * <p>
  * BottomSheet管理类
  */
 public class BottomSheetManager {
@@ -40,7 +40,7 @@ public class BottomSheetManager {
         mResources = viewGroup.getResources();
         int heightPixels = mResources.getDisplayMetrics().heightPixels;
         ViewGroup.LayoutParams layoutParams = viewGroup.getLayoutParams();
-        layoutParams.height = heightPixels-200;
+        layoutParams.height = heightPixels - 200;
         viewGroup.setLayoutParams(layoutParams);
 
         behavior = BottomSheetBehavior.from(viewGroup);
@@ -50,14 +50,14 @@ public class BottomSheetManager {
 
     private void init(ViewGroup viewGroup) {
         int childCount = viewGroup.getChildCount();
-        for (int i = 0; i < childCount; i++){
+        for (int i = 0; i < childCount; i++) {
             View childAt = viewGroup.getChildAt(i);
-            if (childAt instanceof ViewGroup){
+            if (childAt instanceof ViewGroup) {
                 init((ViewGroup) childAt);
                 continue;
             }
             int id = childAt.getId();
-            switch (id){
+            switch (id) {
                 case R.id.id_tv_word:
                     tvWord = (TextView) childAt;
                     break;
@@ -66,12 +66,7 @@ public class BottomSheetManager {
                     break;
                 case R.id.id_iv_trumpet:
                     ivTrumpet = (ImageView) childAt;
-                    ivTrumpet.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            playUrl(audio);
-                        }
-                    });
+                    ivTrumpet.setOnClickListener((view) -> playUrl(audio));
                     break;
                 case R.id.id_tv_paraphrase:
                     tvParaph = (TextView) childAt;
@@ -93,9 +88,10 @@ public class BottomSheetManager {
 
     /**
      * 播放
+     *
      * @param url
      */
-    private void playUrl(String url){
+    private void playUrl(String url) {
         if (mediaPlayer != null && !TextUtils.isEmpty(url)) {
             try {
                 mediaPlayer.reset();
@@ -113,8 +109,7 @@ public class BottomSheetManager {
         }
     }
 
-    public void stop()
-    {
+    public void stop() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -126,10 +121,11 @@ public class BottomSheetManager {
      * Sets the state of the bottom sheet. The bottom sheet will transition to that state with
      * animation.
      *
-     * @param state One of {@link android.support.design.widget.BottomSheetBehavior.State #STATE_COLLAPSED}, {@link BottomSheetBehavior #STATE_EXPANDED}, or
+     * @param state One of {@link android.support.design.widget.BottomSheetBehavior.State #STATE_COLLAPSED
+     * }, {@link BottomSheetBehavior #STATE_EXPANDED}, or
      *              {@link BottomSheetBehavior #STATE_HIDDEN}.
      */
-    public BottomSheetManager setState(final @BottomSheetBehavior.State int state){
+    public BottomSheetManager setState(final @BottomSheetBehavior.State int state) {
         if (behavior != null)
             behavior.setState(state);
         return this;
@@ -138,20 +134,21 @@ public class BottomSheetManager {
 
     /**
      * set callback for changes
+     *
      * @param callback
      */
-    public BottomSheetManager setBottomSheetCallback(BottomSheetBehavior.BottomSheetCallback callback){
+    public BottomSheetManager setBottomSheetCallback(BottomSheetBehavior.BottomSheetCallback callback) {
         behavior.setBottomSheetCallback(callback);
         return this;
     }
 
-    public BottomSheetManager showLoading(){
+    public BottomSheetManager showLoading() {
         if (loadingView != null)
             loadingView.setVisibility(View.VISIBLE);
         return this;
     }
 
-    public BottomSheetManager hideLoading(){
+    public BottomSheetManager hideLoading() {
         if (loadingView != null)
             loadingView.setVisibility(View.GONE);
         return this;
@@ -160,18 +157,19 @@ public class BottomSheetManager {
 
     /**
      * 设置参数
-     * @return
+     *
      * @param data
+     * @return
      */
-    public BottomSheetManager setData(WordDetail data){
-        Log.d(TAG, "setData: "+data.getContent());
+    public BottomSheetManager setData(WordDetail data) {
+        Log.d(TAG, "setData: " + data.getContent());
         hideLoading();
         if (tvWord != null) {
             String content = data.getContent();
             if (TextUtils.isEmpty(content)) {
                 content = mResources.getString(R.string.no_data);
             }
-            tvWord.setText( content );
+            tvWord.setText(content);
         }
         if (tvWordSymbol != null) {
             tvWordSymbol.setText(data.getPronunciation());
@@ -186,7 +184,6 @@ public class BottomSheetManager {
 
         return this;
     }
-
 
 
 }
